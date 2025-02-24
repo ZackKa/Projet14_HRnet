@@ -68,7 +68,7 @@ function EmployeeList() {
             value={pageSize}  // La taille de la page est liée à l'état pageSize
             onChange={(e) => setPageSize(Number(e.target.value))}  // Met à jour la taille de la page
           >
-            {[5, 10, 15, 20].map((size) => ( // Propose différentes tailles de page
+            {[5, 10, 25, 50, 100].map((size) => ( // Propose différentes tailles de page
               <option key={size} value={size}>
                 {size}
               </option>
@@ -137,10 +137,13 @@ function EmployeeList() {
         </span>
         <div className="div-button">
           <button onClick={() => previousPage()} disabled={!canPreviousPage}>  {/* Bouton pour aller à la page précédente */}
-            {'<'}
+            {'Previous'}
           </button>
+          <span>
+            Page <strong>{pageIndex + 1} </strong>
+          </span>
           <button onClick={() => nextPage()} disabled={!canNextPage}>  {/* Bouton pour aller à la page suivante */}
-            {'>'}
+            {'Next'}
           </button>
         </div>
       </div>
