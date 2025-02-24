@@ -114,7 +114,7 @@ function CreateEmployee() {
   minStartDate.setDate(today.getDate() - 7); // 7 jours dans le passé
 
   return (
-    <div className="container">
+    <div id='create-div' className="container">
       <div className="title">
         <h1>HRnet</h1>
       </div>
@@ -140,32 +140,37 @@ function CreateEmployee() {
           value={employee.lastName}
           onChange={handleChange}
         />
+        <div className='dates'>
+          <div className='dates-birth'>
+              {/* Sélecteur de la date de naissance */}
+            <label htmlFor="date-of-birth">Date of Birth</label>
+            <DatePicker
+              selected={employee.dateOfBirth} // Valeur actuelle de la date de naissance
+              onChange={(date) => handleDateChange(date, 'dateOfBirth')} // Mise à jour de la date
+              dateFormat="MM/dd/yyyy" // Format de la date
+              placeholderText="Select date"
+              maxDate={minDateOfBirth} // Limite de sélection : maximum 18 ans dans le passé
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+            />
+          </div>
 
-        {/* Sélecteur de la date de naissance */}
-        <label htmlFor="date-of-birth">Date of Birth</label>
-        <DatePicker
-          selected={employee.dateOfBirth} // Valeur actuelle de la date de naissance
-          onChange={(date) => handleDateChange(date, 'dateOfBirth')} // Mise à jour de la date
-          dateFormat="MM/dd/yyyy" // Format de la date
-          placeholderText="Select date"
-          maxDate={minDateOfBirth} // Limite de sélection : maximum 18 ans dans le passé
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
-
-        {/* Sélecteur de la date de début */}
-        <label htmlFor="start-date">Start Date</label>
-        <DatePicker
-          selected={employee.startDate} // Valeur actuelle de la startDate
-          onChange={(date) => handleDateChange(date, 'startDate')} // Mise à jour de la startDate
-          dateFormat="MM/dd/yyyy"
-          placeholderText="Select date"
-          minDate={minStartDate} // Limite de sélection : au minimum 1 semaine dans le passé
-          showMonthDropdown
-          showYearDropdown
-          dropdownMode="select"
-        />
+          <div className='dates-start'>
+            {/* Sélecteur de la date de début */}
+            <label htmlFor="start-date">Start Date</label>
+            <DatePicker
+              selected={employee.startDate} // Valeur actuelle de la startDate
+              onChange={(date) => handleDateChange(date, 'startDate')} // Mise à jour de la startDate
+              dateFormat="MM/dd/yyyy"
+              placeholderText="Select date"
+              minDate={minStartDate} // Limite de sélection : au minimum 1 semaine dans le passé
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+            />
+          </div>
+        </div>
 
         <fieldset className="address">
           <legend>Address</legend>

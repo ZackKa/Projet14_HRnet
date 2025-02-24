@@ -51,6 +51,16 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 80%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+#create-div a, #create-div h2{
+  margin: auto;
+}
+
+#create-div a{
+  margin-bottom: 20px;
 }
 
 a {
@@ -118,13 +128,25 @@ input:focus, select:focus {
 
 .container form label {
     margin-left: 5px;
-    width: 120px;
+    /* width: 120px; */
     margin-right: 10px;
 }
 
 .container form input,
 .container form select {
-    width: 200px; 
+    /* width: 200px;  */
+}
+
+.dates{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.dates-birth{
+  width: 50%;
+}
+.dates-start{
+  width: 50%;
 }
 
 form {
@@ -170,8 +192,6 @@ button:hover {
   display: block;
 }
 
-
-
 #employee-table {
   width: 100%;
   border-collapse: collapse; 
@@ -202,4 +222,36 @@ button:hover {
 
 #employee-div.container {
   max-width: 90%;
+}
+
+#employee-div.container h1, #employee-div.container a {
+  margin: auto;
+}
+
+#employee-div.container select{
+  width: fit-content;
+}
+
+.div-search{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.page-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div-button button:first-of-type{
+  margin-right: 5px;
+}
+
+.page-button button {
+  width: auto;
 }
