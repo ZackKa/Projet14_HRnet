@@ -129,18 +129,15 @@ function EmployeeList() {
 
       {/* Contrôles de pagination */}
       <div className="page-button">
-        <span>
-          Showing{' '}
-          <strong>
-            {pageIndex + 1} to {pageCount} of {pageCount} entries  {/* Affiche le nombre d'éléments visibles */}
-          </strong>{' '}
+        <span> {/* Affiche le nombre d'éléments visibles */}
+          Showing{' '}<span className='number_element'>{pageIndex + 1} to {pageCount} of {pageCount} entries</span>
         </span>
         <div className="div-button">
           <button onClick={() => previousPage()} disabled={!canPreviousPage}>  {/* Bouton pour aller à la page précédente */}
             {'Previous'}
           </button>
           <span>
-            Page <strong>{pageIndex + 1} </strong>
+          <strong>Page {pageIndex + 1} </strong>
           </span>
           <button onClick={() => nextPage()} disabled={!canNextPage}>  {/* Bouton pour aller à la page suivante */}
             {'Next'}

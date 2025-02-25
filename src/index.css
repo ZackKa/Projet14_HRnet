@@ -108,6 +108,10 @@ input:focus, select:focus {
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .address label {
@@ -192,7 +196,27 @@ button:hover {
   display: block;
 }
 
-#employee-table {
+table {
+  width: 100%;
+  border-collapse: collapse; /* Fusionner les bordures */
+}
+
+table th, table td {
+  padding: 8px; /* Espacement des cellules */
+  text-align: left; /* Alignement du texte */
+  border-bottom: 1px solid #ccc; /* Bordure entre les cellules */
+}
+
+table th {
+  background-color: #f2f2f2; /* Fond pour les entêtes */
+}
+
+table td {
+  background-color: #fff; /* Fond pour les cellules du corps */
+}
+
+
+/* #employee-table {
   width: 100%;
   border-collapse: collapse; 
   margin-top: 20px;
@@ -212,7 +236,7 @@ button:hover {
 
 #employee-table tr:hover {
   background-color: #f1f1f1; 
-}
+} */
 
 
 #employee-div a {
@@ -221,7 +245,7 @@ button:hover {
 }
 
 #employee-div.container {
-  max-width: 90%;
+  max-width: 91%;
 }
 
 #employee-div.container h1, #employee-div.container a {
@@ -239,6 +263,10 @@ button:hover {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.number_element{
+  font-weight: bold;
 }
 
 .page-button {
