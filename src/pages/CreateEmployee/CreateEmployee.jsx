@@ -1,8 +1,9 @@
-import { useState } from 'react'; // Importation du hook useState pour gérer l'état local
-import DatePicker from 'react-datepicker'; // Importation du composant DatePicker pour choisir une date
-import 'react-datepicker/dist/react-datepicker.css'; // Importation du style CSS de react-datepicker
-import DropdownInput from '../../components/dropdownInput/DropdownInput'; // Importation du composant DropdownInput
-import { states, departments } from '../../utils/Constants'; // Importation des données depuis constants.js
+import { useState } from 'react'; 
+import DatePicker from 'react-datepicker'; 
+import 'react-datepicker/dist/react-datepicker.css'; 
+import DropdownInput from '../../components/dropdownInput/DropdownInput'; 
+import { states, departments } from '../../utils/Constants'; 
+import Modal from '../../components/modal/Modal';
 
 function CreateEmployee() {
   const [employee, setEmployee] = useState({
@@ -16,6 +17,8 @@ function CreateEmployee() {
     zipCode: '',
     department: 'Sales',
   });
+
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +39,18 @@ function CreateEmployee() {
     const employees = JSON.parse(localStorage.getItem('employees')) || [];
     employees.push(employee);
     localStorage.setItem('employees', JSON.stringify(employees));
-    alert('Employee Created!');
+    setEmployee({
+      firstName: '',
+      lastName: '',
+      dateOfBirth: null,
+      startDate: null,
+      street: '',
+      city: '',
+      state: '',
+      zipCode: '',
+      department: 'Sales',
+    });
+    setIsModalOpen(true);
   };
 
   const today = new Date();
@@ -48,6 +62,7 @@ function CreateEmployee() {
 
   return (
     <div id='create-div' className="container">
+      <Modal isOpen={isModalOpen} message="Employee Created!" onClose={() => setIsModalOpen(false)} />
       <div className="title">
         <h1>HRnet</h1>
       </div>
@@ -62,7 +77,6 @@ function CreateEmployee() {
           value={employee.firstName}
           onChange={handleChange}
         />
-
         <label htmlFor="last-name">Last Name</label>
         <input
           type="text"
@@ -112,7 +126,6 @@ function CreateEmployee() {
             value={employee.street}
             onChange={handleChange}
           />
-
           <label htmlFor="city">City</label>
           <input
             type="text"
@@ -122,7 +135,6 @@ function CreateEmployee() {
             onChange={handleChange}
           />
 
-          {/* Utilisation du composant DropdownInput pour l'état */}
           <DropdownInput
             label="State"
             name="state"
@@ -141,7 +153,6 @@ function CreateEmployee() {
           />
         </fieldset>
 
-        {/* Utilisation du composant DropdownInput pour le département */}
         <DropdownInput
           label="Department"
           name="department"
