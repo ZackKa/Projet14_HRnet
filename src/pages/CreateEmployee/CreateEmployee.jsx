@@ -15,7 +15,7 @@ function CreateEmployee() {
     city: '',
     state: '',
     zipCode: '',
-    department: 'Sales',
+    department: '',
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false); 
@@ -46,9 +46,9 @@ function CreateEmployee() {
       startDate: null,
       street: '',
       city: '',
-      state: '',
+      state: null,
       zipCode: '',
-      department: 'Sales',
+      department: null,
     });
     setIsModalOpen(true);
   };
@@ -62,7 +62,12 @@ function CreateEmployee() {
 
   return (
     <div id='create-div' className="container">
-      <Modal isOpen={isModalOpen} message="Employee Created!" onClose={() => setIsModalOpen(false)} />
+      {/* <Modal isOpen={isModalOpen} message="Employee Created!" onClose={() => setIsModalOpen(false)} /> */}
+      {/* Modal avec children pour afficher un message personnalisé */}
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeOnOverlayClick={false}>
+        <h2>Employee Created!</h2>
+        <p>Your new employee has been successfully created.</p>
+      </Modal>
       <div className="title">
         <h1>HRnet</h1>
       </div>
@@ -118,22 +123,26 @@ function CreateEmployee() {
 
         <fieldset className="address">
           <legend>Address</legend>
-          <label htmlFor="street">Street</label>
-          <input
-            type="text"
-            id="street"
-            name="street"
-            value={employee.street}
-            onChange={handleChange}
-          />
-          <label htmlFor="city">City</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            value={employee.city}
-            onChange={handleChange}
-          />
+          <div className='element-fieldset'>
+            <label htmlFor="street">Street</label>
+            <input
+              type="text"
+              id="street"
+              name="street"
+              value={employee.street}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='element-fieldset'>
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              value={employee.city}
+              onChange={handleChange}
+            />
+          </div>
 
           <DropdownInput
             label="State"
@@ -142,15 +151,16 @@ function CreateEmployee() {
             options={states}
             onChange={handleChange}
           />
-
-          <label htmlFor="zip-code">Zip Code</label>
-          <input
-            type="number"
-            id="zip-code"
-            name="zipCode"
-            value={employee.zipCode}
-            onChange={handleChange}
-          />
+          <div className='element-fieldset'>
+            <label htmlFor="zip-code">Zip Code</label>
+            <input
+              type="number"
+              id="zip-code"
+              name="zipCode"
+              value={employee.zipCode}
+              onChange={handleChange}
+            />
+          </div>
         </fieldset>
 
         <DropdownInput

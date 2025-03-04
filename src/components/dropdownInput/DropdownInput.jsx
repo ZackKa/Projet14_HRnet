@@ -12,19 +12,34 @@ function DropdownInput({ label, name, value, options, onChange }) {
     label: option.name,          // 'label' est le texte affiché pour chaque option dans le menu déroulant
   }));
 
-  return (
-    <div>
-      {/* Affiche le label du champ de sélection */}
-      <label htmlFor={name}>{label}</label>
+  // return (
+  //   <div className='dropdown-div'>
+  //     {/* Affiche le label du champ de sélection */}
+  //     <label htmlFor={name}>{label}</label>
 
+  //     {/* Composant React-Select qui affiche un menu déroulant avec les options */}
+  //     <Select
+  //       name={name}  // Attribue un nom au champ pour l'associer au formulaire
+  //       id={name}    // Associe un ID au champ
+  //       value={reactSelectOptions.find(option => option.value === value)} // représente l'option actuellement sélectionnée, passée pour afficher la sélection dans l'interface
+  //       onChange={selectedOption => onChange({ target: { name, value: selectedOption.value } })
+  //       } // Récupère l'option sélectionnée et passe sa valeur à 'handleChange' dans le parent pour mettre à jour l'état
+  //       options={reactSelectOptions} // Les options à afficher dans le menu déroulant
+  //       placeholder={`Select ${label}`} // Affiche un placeholder personnalisé quand aucune option n'est sélectionnée
+  //     />
+  //   </div>
+  // );
+  return (
+    <div className='dropdown-div'>
+      <label htmlFor={name}>{label}</label>
       {/* Composant React-Select qui affiche un menu déroulant avec les options */}
       <Select
-        name={name}  // Attribue un nom au champ pour l'associer au formulaire
-        id={name}    // Associe un ID au champ
-        value={reactSelectOptions.find(option => option.value === value)} // représente l'option actuellement sélectionnée, passée pour afficher la sélection dans l'interface
-        onChange={selectedOption => onChange({ target: { name, value: selectedOption.value } })
-        } // Récupère l'option sélectionnée et passe sa valeur à 'handleChange' dans le parent pour mettre à jour l'état
+        name={name} // Attribue un nom au champ pour l'associer au formulaire
+        id={name} // Associe un ID au champ
+        value={value ? reactSelectOptions.find(option => option.value === value) : null} // Affiche l'option sélectionnée ou null si aucune sélection
+        onChange={selectedOption => onChange({ target: { name, value: selectedOption ? selectedOption.value : '' } })} // Gérer la valeur correctement
         options={reactSelectOptions} // Les options à afficher dans le menu déroulant
+        placeholder={`Select ${label}`} // Afficher un placeholder si value est null
       />
     </div>
   );
@@ -34,7 +49,7 @@ function DropdownInput({ label, name, value, options, onChange }) {
 DropdownInput.propTypes = {
   label: PropTypes.string.isRequired, // Le label doit être une chaîne de caractères et est obligatoire
   name: PropTypes.string.isRequired,  // Le nom du champ doit être une chaîne de caractères et est obligatoire
-  value: PropTypes.string.isRequired, // La valeur sélectionnée doit être une chaîne de caractères et est obligatoire
+  value: PropTypes.string, // La valeur peut être une chaîne ou null (si rien n'est sélectionné)
   options: PropTypes.arrayOf(         // Les options doivent être un tableau d'objets avec des propriétés spécifiques
     PropTypes.shape({
       abbreviation: PropTypes.string.isRequired,  // Chaque option doit avoir une 'abbreviation' qui est une chaîne de caractères

@@ -112,6 +112,7 @@ input:focus, select:focus {
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
 }
 
 .address label {
@@ -139,6 +140,7 @@ input:focus, select:focus {
 .container form input,
 .container form select {
     /* width: 200px;  */
+    background: white;
 }
 
 .dates{
@@ -324,4 +326,19 @@ button {
 }
 button:hover {
   background-color: #0056b3;
+}
+
+.element-fieldset{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+fieldset .dropdown-div{
+  width: 215px;
+  height: 78px;
+}
+
+.element-fieldset input{
+  height: 39px;
 }
