@@ -1,9 +1,12 @@
+
 import { useState } from 'react'; 
+import { useDispatch } from 'react-redux';  // Importer useDispatch
 import DatePicker from 'react-datepicker'; 
 import 'react-datepicker/dist/react-datepicker.css'; 
 import DropdownInput from '../../components/dropdownInput/DropdownInput'; 
 import { states, departments } from '../../utils/Constants'; 
 import Modal from '../../components/modal/Modal';
+import { addEmployee } from '../../features/EmployeeSlice';  // Importer l'action
 
 function CreateEmployee() {
   const [employee, setEmployee] = useState({
@@ -18,7 +21,8 @@ function CreateEmployee() {
     department: '',
   });
 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();  // Initialiser le dispatch
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +40,17 @@ function CreateEmployee() {
   };
 
   const saveEmployee = () => {
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    employees.push(employee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+    // Avant de dispatcher l'employé, on transforme les dates en chaînes ISO
+    const employeeToDispatch = {
+      ...employee,
+      dateOfBirth: employee.dateOfBirth ? employee.dateOfBirth.toISOString() : null,
+      startDate: employee.startDate ? employee.startDate.toISOString() : null,
+    };
+  
+    // Dispatche l'action 'addEmployee' avec l'employé transformé
+    dispatch(addEmployee(employeeToDispatch));
+  
+    // Réinitialiser les champs du formulaire
     setEmployee({
       firstName: '',
       lastName: '',
@@ -50,8 +62,12 @@ function CreateEmployee() {
       zipCode: '',
       department: null,
     });
+  
+    // Ouvrir le modal de confirmation
     setIsModalOpen(true);
   };
+  
+  
 
   const today = new Date();
   const minDateOfBirth = new Date();
@@ -62,20 +78,19 @@ function CreateEmployee() {
 
   return (
     <div id='create-div' className="container">
-      {/* <Modal isOpen={isModalOpen} message="Employee Created!" onClose={() => setIsModalOpen(false)} /> */}
-      {/* Modal avec children pour afficher un message personnalisé */}
+      {/* Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeOnOverlayClick={false}>
         <h2>Employee Created!</h2>
         <p>Your new employee has been successfully created.</p>
       </Modal>
-      <div className="title">
-        <h1>HRnet</h1>
-      </div>
-      <a href="/employee-list">View Current Employees</a>
-      <h2>Create Employee</h2>
-      <form onSubmit={(e) => e.preventDefault()} id="create-employee">
-        <label htmlFor="first-name">First Name</label>
-        <input
+       <div className="title">
+         <h1>HRnet</h1>
+       </div>
+       <a href="/employee-list">View Current Employees</a>
+       <h2>Create Employee</h2>
+       <form onSubmit={(e) => e.preventDefault()} id="create-employee">
+         <label htmlFor="first-name">First Name</label>
+         <input
           type="text"
           id="first-name"
           name="firstName"
@@ -171,7 +186,6 @@ function CreateEmployee() {
           onChange={handleChange}
         />
       </form>
-
       <button onClick={saveEmployee}>Save</button>
     </div>
   );

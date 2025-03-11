@@ -12,23 +12,6 @@ function DropdownInput({ label, name, value, options, onChange }) {
     label: option.name,          // 'label' est le texte affiché pour chaque option dans le menu déroulant
   }));
 
-  // return (
-  //   <div className='dropdown-div'>
-  //     {/* Affiche le label du champ de sélection */}
-  //     <label htmlFor={name}>{label}</label>
-
-  //     {/* Composant React-Select qui affiche un menu déroulant avec les options */}
-  //     <Select
-  //       name={name}  // Attribue un nom au champ pour l'associer au formulaire
-  //       id={name}    // Associe un ID au champ
-  //       value={reactSelectOptions.find(option => option.value === value)} // représente l'option actuellement sélectionnée, passée pour afficher la sélection dans l'interface
-  //       onChange={selectedOption => onChange({ target: { name, value: selectedOption.value } })
-  //       } // Récupère l'option sélectionnée et passe sa valeur à 'handleChange' dans le parent pour mettre à jour l'état
-  //       options={reactSelectOptions} // Les options à afficher dans le menu déroulant
-  //       placeholder={`Select ${label}`} // Affiche un placeholder personnalisé quand aucune option n'est sélectionnée
-  //     />
-  //   </div>
-  // );
   return (
     <div className='dropdown-div'>
       <label htmlFor={name}>{label}</label>

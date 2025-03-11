@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'; 
-import { useTable, usePagination, useSortBy, useGlobalFilter } from 'react-table'; // Importation des hooks nécessaires de react-table
+
+import React, {useEffect} from 'react'; 
+import { useSelector } from 'react-redux';  // Importer useSelector
+import { useTable, usePagination, useSortBy, useGlobalFilter } from 'react-table';
 
 function EmployeeList() {
-  const [employees, setEmployees] = useState([]); // Déclare un état pour stocker la liste des employés
+  const employees = useSelector(state => state.employees);  // Récupérer les employés depuis Redux
 
-  // Utilisation de useEffect pour charger les employés depuis le localStorage lorsque le composant se monte
   useEffect(() => {
-    // Récupère les employés du localStorage ou initialise un tableau vide si aucun élément n'est trouvé
-    const storedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
-    setEmployees(storedEmployees); // Met à jour l'état des employés
-  }, []); // Le tableau vide signifie que cet effet ne se déclenche qu'une fois au montage du composant
+    console.log('Employés récupérés depuis Redux :', employees); // console.log pour vérifier que les employés sont bien récupérés
+  }, [employees]);  // Effect se déclenche chaque fois que `employees` change
 
-  const data = employees; // Attribue la liste des employés à la constante data, utilisée par react-table
+  const data = employees;
 
   // Définition des colonnes de la table avec leurs titres et clés d'accès aux données
   const columns = React.useMemo(
@@ -58,13 +57,12 @@ function EmployeeList() {
   return (
     <div id="employee-div" className="container">
       <h1>Current Employees</h1>
-
-      {/* Zone de recherche et de filtrage */}
-      <div className='div-search'>
-        {/* Sélecteur pour choisir le nombre d'éléments par page */}
-        <div className="select-wrapper">
-          <span className="label">Show </span>
-          <select
+      {/* //       {/* Zone de recherche et de filtrage */}
+       <div className='div-search'>
+         {/* Sélecteur pour choisir le nombre d'éléments par page */}
+         <div className="select-wrapper">
+           <span className="label">Show </span>
+           <select
             value={pageSize}  // La taille de la page est liée à l'état pageSize
             onChange={(e) => setPageSize(Number(e.target.value))}  // Met à jour la taille de la page
           >

@@ -17,19 +17,9 @@ function Modal({ isOpen, onClose, children, className, closeOnOverlayClick }) {
     };
 
     return (
-        <div 
-            className={`modal-overlay ${className}`} 
-            onClick={handleOverlayClick} 
-            aria-hidden="true"
-        >
-            <div 
-                className="modal-content"
-                onClick={handleModalClick}
-                role="dialog"
-                aria-labelledby="modal-title"
-                aria-describedby="modal-description"
-            >
-                <div id="modal-title">
+        <div className={`modal-overlay ${className}`} onClick={handleOverlayClick} aria-hidden="true">
+            <div className="modal-content" onClick={handleModalClick} role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+                <div id="modal-element">
                     {children}
                 </div>
                 <button onClick={onClose} aria-label="Close modal">Close</button>
