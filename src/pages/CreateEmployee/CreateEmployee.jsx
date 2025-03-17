@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; 
 import DropdownInput from '../../components/dropdownInput/DropdownInput'; 
 import { states, departments } from '../../utils/Constants'; 
-import Modal from '../../components/modal/Modal';
+import Modal from "@lelotgh/react_modal_component";
 import { addEmployee } from '../../features/EmployeeSlice';  // Importer l'action
 
 function CreateEmployee() {
