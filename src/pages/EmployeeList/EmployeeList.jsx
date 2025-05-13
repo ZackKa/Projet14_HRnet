@@ -1,16 +1,16 @@
 
 import React, {useEffect} from 'react'; 
-import { useSelector } from 'react-redux';  // Importer useSelector
-import { useTable, usePagination, useSortBy, useGlobalFilter } from 'react-table';
+import { useSelector } from 'react-redux';  // Importer useSelector pour accéder au store Redux
+import { useTable, usePagination, useSortBy, useGlobalFilter } from 'react-table'; // Importer les hooks de react-table pour gérer la table
 
 function EmployeeList() {
   const employees = useSelector(state => state.employees);  // Récupérer les employés depuis Redux
 
   useEffect(() => {
-    console.log('Employés récupérés depuis Redux :', employees); // console.log pour vérifier que les employés sont bien récupérés
+    console.log('Employés récupérés depuis Redux :', employees);
   }, [employees]);  // Effect se déclenche chaque fois que `employees` change
 
-  const data = employees;
+  const data = employees; // Les données de la table sont les employés récupérés
 
   // Définition des colonnes de la table avec leurs titres et clés d'accès aux données
   const columns = React.useMemo(
@@ -57,14 +57,14 @@ function EmployeeList() {
   return (
     <div id="employee-div" className="container">
       <h1>Current Employees</h1>
-      {/* //       {/* Zone de recherche et de filtrage */}
+      {/* Zone de recherche et de filtrage */}
        <div className='div-search'>
-         {/* Sélecteur pour choisir le nombre d'éléments par page */}
-         <div className="select-wrapper">
+         <div className="select-wrapper"> {/* Sélecteur pour choisir le nombre d'éléments par page */}
            <span className="label">Show </span>
            <select
             value={pageSize}  // La taille de la page est liée à l'état pageSize
-            onChange={(e) => setPageSize(Number(e.target.value))}  // Met à jour la taille de la page
+            onChange={(e) => setPageSize(Number(e.target.value))}  // Met à jour la taille de la page, e.target.value récupère la valeur choisie dans le select
+            aria-label="Select number of entries per page"
           >
             {[5, 10, 25, 50, 100].map((size) => ( // Propose différentes tailles de page
               <option key={size} value={size}>
@@ -75,13 +75,13 @@ function EmployeeList() {
           <span className="label"> entries</span>
         </div>
 
-        {/* Zone de recherche pour filtrer les employés */}
-        <div>
+        <div> {/* Zone de recherche pour filtrer les employés */}
           <input
             type="text"
             value={globalFilter || ''} // La valeur du champ de recherche est liée au filtre global
             onChange={(e) => setGlobalFilter(e.target.value)}  // Met à jour le filtre global à chaque saisie
             placeholder="Search employees..."  // Texte d'indication dans le champ de recherche
+            aria-label="Search employees"
           />
         </div>
       </div>
@@ -89,7 +89,7 @@ function EmployeeList() {
       {/* Affichage de la table avec les propriétés générées par react-table */}
       <table {...getTableProps()} className="display">
         <thead>
-          {headerGroups.map((headerGroup, index) => (  // Parcours les groupes d'en-têtes
+          {headerGroups.map((headerGroup, index) => (  // Parcours les groupes d'en-têtes, headerGroup représente une ligne d’en-tête, index sert de clé unique pour React
             <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, columnIndex) => ( // Parcours les colonnes dans chaque groupe
                 <th
@@ -109,6 +109,7 @@ function EmployeeList() {
             </tr>
           ))}
         </thead>
+        {/*Section des données*/}
         <tbody {...getTableBodyProps()}>
           {page.map((row, rowIndex) => {  // Affiche les lignes de la page courante
             prepareRow(row);  // Prépare la ligne avant de l'afficher
@@ -116,33 +117,31 @@ function EmployeeList() {
               <tr {...row.getRowProps()} key={rowIndex}>
                 {row.cells.map((cell, cellIndex) => (  // Parcours les cellules de chaque ligne
                   <td {...cell.getCellProps()} key={cellIndex}>
-                    {cell.render('Cell')}
-                  </td> // Affiche la donnée de chaque cellule
+                    {cell.render('Cell')} {/* Affiche la donnée de chaque cellule */}
+                  </td>
                 ))}
               </tr>
             );
           })}
         </tbody>
       </table>
-
       {/* Contrôles de pagination */}
       <div className="page-button">
         <span> {/* Affiche le nombre d'éléments visibles */}
           Showing{' '}<span className='number_element'>{pageIndex + 1} to {pageCount} of {pageCount} entries</span>
         </span>
         <div className="div-button">
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>  {/* Bouton pour aller à la page précédente */}
+          <button onClick={() => previousPage()} disabled={!canPreviousPage} aria-label="Previous page">  {/* Bouton pour aller à la page précédente */}
             {'Previous'}
           </button>
           <span>
           <strong>Page {pageIndex + 1} </strong>
           </span>
-          <button onClick={() => nextPage()} disabled={!canNextPage}>  {/* Bouton pour aller à la page suivante */}
+          <button onClick={() => nextPage()} disabled={!canNextPage} aria-label="Next page">  {/* Bouton pour aller à la page suivante */}
             {'Next'}
           </button>
         </div>
       </div>
-
       {/* Lien pour revenir à la page d'accueil */}
       <a href="/">Home</a>
     </div>

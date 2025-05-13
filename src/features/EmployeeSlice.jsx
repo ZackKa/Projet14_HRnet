@@ -3,11 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 // Fonction pour charger les employés depuis localStorage
 const loadEmployeesFromStorage = () => {
   try {
-    const storedEmployees = JSON.parse(localStorage.getItem('employees'));
-    return storedEmployees || [];
+    const storedEmployees = JSON.parse(localStorage.getItem('employees')); // Récupère les employés du localStorage
+    return storedEmployees || []; // Retourne les employés ou un tableau vide si aucun
   } catch (e) {
-    console.error('Failed to load employees from localStorage', e);
-    return [];
+    console.error('Failed to load employees from localStorage', e); // Gère l'erreur si le chargement échoue
+    return []; // Retourne un tableau vide en cas d'erreur
   }
 };
 
@@ -18,15 +18,11 @@ const employeesSlice = createSlice({
   reducers: {
     // Action pour ajouter un employé
     addEmployee: (state, action) => {
-      state.push(action.payload);
+      state.push(action.payload); // Ajoute l'employé à l'état
       localStorage.setItem('employees', JSON.stringify(state)); // Mettre à jour le localStorage
-    },
-    // Action pour réinitialiser les employés (utile pour certaines actions ou tests)
-    setEmployees: (state, action) => {
-      return action.payload;
     },
   },
 });
 
-export const { addEmployee, setEmployees } = employeesSlice.actions;
+export const { addEmployee } = employeesSlice.actions;
 export default employeesSlice.reducer;

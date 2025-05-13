@@ -1,10 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit';
-import employeeReducer from '../features/EmployeeSlice';
+import { configureStore } from '@reduxjs/toolkit'; // Import de la fonction pour configurer le store
+import employeeReducer from '../features/EmployeeSlice'; // Import du reducer des employés
 
 // Création du store avec le reducer
 const store = configureStore({
   reducer: {
-    employees: employeeReducer, // Le slice est intégré au store
+    employees: employeeReducer, // Intégration du slice des employés dans le store
   },
 });
 

@@ -16,7 +16,7 @@ body {
 
 .title h1 {
   font-size: 3rem;
-  color: #4caf50;
+  color: #2d6a4f;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -42,7 +42,7 @@ body {
 
 a {
   text-decoration: none;
-  color: #2196F3;
+  color: #1a73e8;
   font-size: 1.1rem;
   display: inline-block;
   margin-bottom: 20px;
@@ -50,7 +50,7 @@ a {
 }
 
 a:hover {
-  color: #1976D2;
+  color: #0c56a0;
 }
 
 form {
@@ -61,7 +61,7 @@ form {
 
 label {
   font-size: 1.1rem;
-  color: #555;
+  color: #444;
   margin-bottom: 8px;
 }
 
@@ -76,7 +76,7 @@ input, select {
 }
 
 input:focus, select:focus {
-  border-color: #4caf50; 
+  border-color: #2d6a4f; 
   outline: none;
 }
 
@@ -145,7 +145,7 @@ fieldset {
 }
 
 button {
-  background-color: #4caf50;
+  background-color: #0056b3;
   color: #fff;
   padding: 12px 24px;
   border: none;
@@ -158,11 +158,11 @@ button {
 }
 
 button:hover {
-  background-color: #388e3c; 
+  background-color: #004085; 
 }
 /* modal confirmation */
-#confirmation {
-  background-color: #4caf50;
+/* #confirmation {
+  background-color: #2d6a4f;
   color: white;
   padding: 20px;
   border-radius: 5px;
@@ -173,7 +173,7 @@ button:hover {
 
 #confirmation.show {
   display: block;
-}
+} */
 
 table {
   width: 100%;
@@ -242,15 +242,7 @@ table td {
 }
 
 
-button {
-  margin-top: 10px;
-  padding: 8px 15px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-}
+
 
 .element-fieldset{
   display: flex;

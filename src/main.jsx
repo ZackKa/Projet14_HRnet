@@ -7,7 +7,7 @@ import store from './app/Store.jsx';  // Importation du store
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Provider store={store}> {/* Enroule l'app avec le Provider */}
+    <Provider store={store}> {/* Enroule l'app avec le Provider qui fournit le store Redux à toute ton application React */}
       <App />
     </Provider>
   </StrictMode>

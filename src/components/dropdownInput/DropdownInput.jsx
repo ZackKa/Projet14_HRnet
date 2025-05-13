@@ -14,15 +14,15 @@ function DropdownInput({ label, name, value, options, onChange }) {
 
   return (
     <div className='dropdown-div'>
-      <label htmlFor={name}>{label}</label>
-      {/* Composant React-Select qui affiche un menu déroulant avec les options */}
+      <label htmlFor={name} id={`${name}-label`}>{label}</label> {/* Composant React-Select qui affiche un menu déroulant avec les options */}
       <Select
         name={name} // Attribue un nom au champ pour l'associer au formulaire
         id={name} // Associe un ID au champ
-        value={value ? reactSelectOptions.find(option => option.value === value) : null} // Affiche l'option sélectionnée ou null si aucune sélection
-        onChange={selectedOption => onChange({ target: { name, value: selectedOption ? selectedOption.value : '' } })} // Gérer la valeur correctement
+        value={value ? reactSelectOptions.find(option => option.value === value) : null} // Si une valeur est sélectionnée, trouve l’option correspondante. Sinon, ne rien afficher.
+        onChange={selectedOption => onChange({ target: { name, value: selectedOption ? selectedOption.value : '' } })} // Gère le changement de valeur
         options={reactSelectOptions} // Les options à afficher dans le menu déroulant
         placeholder={`Select ${label}`} // Afficher un placeholder si value est null
+        aria-labelledby={`${name}-label`}  // Association explicite avec le label
       />
     </div>
   );
