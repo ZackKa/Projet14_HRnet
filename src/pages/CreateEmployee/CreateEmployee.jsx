@@ -1,11 +1,10 @@
 
 import { useState } from 'react'; 
 import { useDispatch } from 'react-redux';  // Importer useDispatch pour envoyer des actions au store Redux
-import DatePicker from 'react-datepicker'; // Importer le composant DatePicker pour sélectionner une date
-import 'react-datepicker/dist/react-datepicker.css'; // Importer le CSS de DatePicker
+import DatePickerInput from '../../components/datePicker/DatePicker';
 import DropdownInput from '../../components/dropdownInput/DropdownInput'; // Importer le composant DropdownInput pour les menus déroulants
 import { states, departments } from '../../utils/Constants'; // Importer les options de states et departments
-import Modal from "@lelotgh/react_modal_component"; // Importer le composant Modal 
+import ModalConfirmation from '../../components/modal/ModalConfirmation'; // Importer le composant Modal 
 import { addEmployee } from '../../features/EmployeeSlice';  // Importer l'action
 
 function CreateEmployee() {
@@ -36,6 +35,7 @@ function CreateEmployee() {
   };
 
   // Fonction pour gérer le changement des dates dans le formulaire
+  // handleDateChange ne reçoit pas un e.target comme handleChange, mais directement une date (Date) depuis react-datepicker
   const handleDateChange = (date, name) => {
     setEmployee({
       ...employee,
@@ -45,7 +45,7 @@ function CreateEmployee() {
 
   // Fonction pour sauvegarder un employé, envoyer l'action et réinitialiser le formulaire
   const saveEmployee = () => {
-    // Avant de dispatcher l'employé, on transforme les dates en chaînes ISO
+    // Avant de dispatcher l'employé, on transforme les dates en chaînes ISO en texte standardisé pour le stockage
     const employeeToDispatch = {
       ...employee,
       dateOfBirth: employee.dateOfBirth ? employee.dateOfBirth.toISOString() : null,
@@ -84,10 +84,7 @@ function CreateEmployee() {
   return (
     <div id='create-div' className="container">
       {/* Modal de confirmation après la création de l'employé */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} closeOnOverlayClick={false}>
-        <h2>Employee Created!</h2>
-        <p>Your new employee has been successfully created.</p>
-      </Modal>
+      <ModalConfirmation isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
        <div className="title">
          <h1>HRnet</h1>
        </div>
@@ -115,34 +112,24 @@ function CreateEmployee() {
 
         <div className='dates'>
           <div className='dates-birth'>
-            <label htmlFor="date-of-birth" id="date-of-birth-label">Date of Birth</label>
-            <DatePicker
-              selected={employee.dateOfBirth}
-              onChange={(date) => handleDateChange(date, 'dateOfBirth')}
-              dateFormat="MM/dd/yyyy"
-              placeholderText="Select date"
-              maxDate={minDateOfBirth}
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode="select"
+            <DatePickerInput
+              label="Date of Birth"
               id="date-of-birth"
-              aria-labelledby="date-of-birth-label"  // Associer le DatePicker à son label
+              name="dateOfBirth"
+              selected={employee.dateOfBirth}
+              onChange={handleDateChange}
+              maxDate={minDateOfBirth}
             />
           </div>
 
           <div className='dates-start'>
-            <label htmlFor="start-date" id="start-date-label">Start Date</label>
-            <DatePicker
-              selected={employee.startDate}
-              onChange={(date) => handleDateChange(date, 'startDate')}
-              dateFormat="MM/dd/yyyy"
-              placeholderText="Select date"
-              minDate={minStartDate}
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode="select"
+            <DatePickerInput
+              label="Start Date"
               id="start-date"
-              aria-labelledby="start-date-label"  // Associer le DatePicker à son label
+              name="startDate"
+              selected={employee.startDate}
+              onChange={handleDateChange}
+              minDate={minStartDate}
             />
           </div>
         </div>
